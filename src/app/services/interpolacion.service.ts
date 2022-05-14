@@ -28,5 +28,13 @@ export abstract class InterpolacionService {
 
   protected abstract recorrerTabla():void;
 
+  protected buscarSiguiente(columna:number,iteracion:number):[[number, number] | boolean]{
+    if(iteracion>(this.tableSize-1)) return [false];
+    
+    return (this.tablaOriginal[columna][iteracion]=="") 
+            ? this.buscarSiguiente(columna, iteracion+1)
+            : [[Number(this.tablaOriginal[columna][iteracion]), iteracion]];
+  }
+
 }
  

@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   message: string = '';
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  durationInSeconds: number = 2;
+  durationInSeconds: number = 3;
 
   // public tabla:[Array<number | string>, Array<number | string>] = [
   //   [2,3,5,6,8,9,10,11,12,14,15],
@@ -24,8 +24,8 @@ export class MainComponent implements OnInit {
   // ];
 
   public tabla:[Array<number | string>, Array<number | string>] = [
-    [2,3,5,6,8,9,10,"",11,"",12,14,15],
-    [4,6,"",7,7.5,9,9.8,10.1,10.8,11.5,"","",15]
+    [1,2,3,4,5,6,7,8,9,10],
+    [0.18,0.18,"",0.35,"",1.26,1.95,2.3,"",2.71]
   ];
 
   constructor(
@@ -51,7 +51,6 @@ export class MainComponent implements OnInit {
       }else{
         console.log(this._interpolacionLineal.tablaResultante);
       }
-      
     }
   }
 
@@ -63,13 +62,14 @@ export class MainComponent implements OnInit {
       this._interpolacionCuadratica.tablaOriginal = this.tabla;
       this._interpolacionCuadratica.completarValores();
       let n = this._interpolacionCuadratica.tablaResultante[0].length;
+
       if(n<this.tabla[0].length){
         this.message = "No se pudo calcular todo, revise su tabla";
         this.openSnackBarError();
       }else{
         console.log(this._interpolacionCuadratica.tablaResultante);
       }
-      
+
     }
   }
 

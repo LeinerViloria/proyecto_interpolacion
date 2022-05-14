@@ -27,26 +27,26 @@ export class InterpolacionCuadraticaService extends InterpolacionService {
         let x = Number(this.tablaOriginal[0][i].toString());
         let y:number;
 
-        console.info(x0,y0,x1,y1,x2,y2);
-        // console.log(this.calcular(x,Number(x0),Number(x1),Number(x2),Number(y0)));
-        
-        // y = Number(this.calcular(x,Number(x0),Number(x1),Number(x2),Number(y0))[0]);
-        // y += Number(this.calcular(x,Number(x1),Number(x0),Number(x2),Number(y1))[0]);
-        // y += Number(this.calcular(x,Number(x2),Number(x0),Number(x1),Number(y2))[0]);
+        if(y2==""){
+          let aux:any;
+          aux = this.buscarSiguiente(1, i+1);
+          if(aux[0]==false) break;
+          aux = aux[0];
+          y2 = aux[0];
+          x2 = this.tablaOriginal[0][Number(aux[1])].toString();
+        }
+       
         y=this.calcular(x, Number(x0), Number(x1), Number(x2), Number(y0), Number(y1), Number(y2));
+        this.tablaOriginal[1][i] = y;
         this.agregarValores(x, y, i);
-
       }else if(this.tablaOriginal[0][i]===''){
-        
+        break;
+      }else{
+        this.agregarValores(Number(this.tablaOriginal[0][i]), Number(this.tablaOriginal[1][i]), i);
       }
     }
+    
   }
-
-  // private calcular(x:number, num1:number, num2:number, num3:number,y:number):[number | boolean]{
-  //   let denominador = (num1-num2)*(num1-num3);
-  //   if(denominador==0) return [false];
-  //   return [(((x-num2)*(x-num3))/(denominador))*y];
-  // }
 
   private calcular(x:number, x0:number, x1:number, x2:number, y0:number, y1:number, y2:number):number{
     return (((x-x1)*(x-x2))/((x0-x1)*(x0-x2))*(y0))+(((x-x0)*(x-x2))/((x1-x0)*(x1-x2))*(y1)) + (((x-x0)*(x-x1))/((x2-x0)*(x2-x1))*(y2));

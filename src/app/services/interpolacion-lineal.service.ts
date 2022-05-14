@@ -15,7 +15,7 @@ export class InterpolacionLinealService extends InterpolacionService{
     for (let i = 0; i < this.tableSize; i++) {
       //Tanto x como y, en la misma posicion no tienen valores
       if(this.tablaOriginal[0][i]==='' && this.tablaOriginal[1][i]==='') break;
-      //console.log(this.tablaOriginal[1][i]==='', this.tablaOriginal[0][i]==='');
+      
       if(this.tablaOriginal[1][i]===''){
         if(i==0 || i==(this.tableSize-1)) break;
 
@@ -55,7 +55,7 @@ export class InterpolacionLinealService extends InterpolacionService{
         let y1 = Number(this.tablaOriginal[1][i-1]);
         let y2:any;
         y2 = Number(this.tablaOriginal[1][i+1]);
-        
+
         if(y2==""){
           let aux:any;
           aux = this.buscarSiguiente(0, i+1);
@@ -67,15 +67,15 @@ export class InterpolacionLinealService extends InterpolacionService{
 
         let x = this.calcular(y, y1, y2, x1, x2);
         if((typeof x)=='boolean') break;
-        
+
         this.agregarValores(Number(x[0]), y, i);
 
       }else{
         this.agregarValores(Number(this.tablaOriginal[0][i]), Number(this.tablaOriginal[1][i]), i);
       }
 
-      
     }
+    
   }
 
   private calcular(base:number,n1:number,n2:number,n3:number,n4:number):[number | boolean]{
@@ -85,12 +85,5 @@ export class InterpolacionLinealService extends InterpolacionService{
       : [(((base-n1)/divisor)) * (n4-n3) + n3];
   }
 
-  private buscarSiguiente(columna:number,iteracion:number):[[number, number] | boolean]{
-    if(iteracion>(this.tableSize-1)) return [false];
-    
-    return (this.tablaOriginal[columna][iteracion]=="") 
-            ? this.buscarSiguiente(columna, iteracion+1)
-            : [[Number(this.tablaOriginal[columna][iteracion]), iteracion]];
-  }
 
 }
